@@ -46,7 +46,7 @@ def letters_only(string:str) -> str | None:
 # Calls the function letters_only
 print(letters_only) 
 
-# Palindrom generator
+# Palindrome generator
 def generate_palindrome(string:str) -> str | None: 
     # creates a variable palindrom setting it to None
     # None will be returned unless there actually is an input string
@@ -55,15 +55,52 @@ def generate_palindrome(string:str) -> str | None:
     if string != "":
         # set a variable to store the reversed input
         reversed_string = ""
-        # variable i is set to keep track of what chracter we're on in 
+        # variable i is set to keep track of what chracter we're on in the string
+        # len(string) - 1 gives use the index of the last character of the string
         i = len(string) - 1
+        # this loop will run as long as i is greater than or equal to 0
+        # strating from the last character and move bacwards to the first
         while i >= 0:
+            # the character at position i in the string gets added to reversed_string
             reversed_string += string[i]
+            # after adding a character 1 is subtracted from i to move back a character in teh string
             i -= 1
+        # once all characters have been reversed it takes the original string and adds its reversed version onto it
         palindrome = string + reversed_string
+    # this returns the palindrome of the inputted string
     return palindrome
+# Calls the generate_palindrom function
 print(generate_palindrome)
 
+# Palindrome detector
+def is_palindrome(string:str) -> bool:
+    # thris creates an empty string named final whereonly lowercase letters and digits will be stored
+    final = "" 
+    # a loop that itirates through the string in the input
+    for character in string:
+        asc_code = ord(character)
+        # once we have the ascii code for the characters it checks if they are letters or digits
+        if (65 <= asc_code <= 90 or 97 <= asc_code <= 122 or 48 <= asc_code <= 57):
+            # this is so that no uppercase letters are in teh string, converting them to lowercase
+            if 65 <= asc_code <= 90:
+                # takes chr() so that it takes the ascii code and returns the characters it represents 
+                character = chr(asc_code + 32)
+            final += character
+    reversed_final = "" #reverses final form of the string
+    # variable i is set to keep track of what chracter we're on in the string
+    # len(string) - 1 gives use the index of the last character of the string
+    i = len(final) - 1
+     # this loop will run as long as i is greater than or equal to 0
+     # strating from the last character and move bacwards to the first
+    while i >= 0:
+        # the character at position i in the string gets added to reversed_string
+        reversed_final += final[i]
+        # after adding a character 1 is subtracted from i to move back a character in teh string
+        i -= 1
+    # return True if "final" equals its reversed form "reversed_final", if not it returns False
+    return final == reversed_final
+# Calls the is_palindrome function
+print(is_palindrome)
 
 
 
