@@ -1,5 +1,5 @@
 # Intersection of two strings
-def instersection(foo:str, bar:str) -> str | None:
+def intersection(foo:str, bar:str) -> str | None:
     # this makes an empty string where we can store characters found both in foo and bar
     result = "" 
     # a loop that itereates through each character of the first string 
@@ -12,7 +12,7 @@ def instersection(foo:str, bar:str) -> str | None:
     # if a result is found it is returned as a string but if it's still empty None is returned
     return result if result else None
 # Calls the intersection function
-print(instersection)  
+print(intersection)  
 
 # Alphabetical assessment
 def is_alphabetical(string:str) -> bool:
@@ -123,3 +123,61 @@ print(''.join([
     chr(116), chr(104), chr(101), chr(32), chr(116), chr(101), chr(115), chr(116), chr(32),
     chr(109), chr(101), chr(116), chr(104), chr(111), chr(100), chr(46), chr(10), chr(10)
 ]))
+
+# 
+# Testing here is done a bit more formally than using simple print statements.
+# This type of testing is called "Unit Testing" and can be extremely useful.
+# Unit testing applies to small components of the software we write -- in this
+# case the units tested are the individual methods we wrote.
+#
+
+import unittest
+
+class TestStringMethods(unittest.TestCase):
+
+    def test_intersection(self):
+        self.assertEqual(intersection("airplanes", "repairman"), "airpne")
+        self.assertEqual(intersection("abc", "def"), "")
+        self.assertEqual(intersection("hello", "hello"), "hello")
+        self.assertEqual(intersection("aaaa", "aaa"), "a")
+        self.assertEqual(intersection("", "abc"), None)
+        self.assertEqual(intersection("abc", ""), None)
+        self.assertEqual(intersection("", ""), None)
+        self.assertEqual(intersection("abc", "cab"), "abc") # preserves order of `foo`
+
+    def test_is_alphabetical(self):
+        self.assertTrue(is_alphabetical("abcXYZ"))
+        self.assertFalse(is_alphabetical("abc1"))
+        self.assertFalse(is_alphabetical("hello!"))
+        self.assertFalse(is_alphabetical(" "))
+        self.assertFalse(is_alphabetical(""))
+        self.assertFalse(is_alphabetical(None))
+        self.assertTrue(is_alphabetical("ZzAaBb"))
+
+    def test_letters_only(self):
+        self.assertEqual(letters_only("abc123XYZ!@#"), "abcXYZ")
+        self.assertEqual(letters_only("!@#$%^&*()"), "")
+        self.assertEqual(letters_only(""), None)
+        self.assertEqual(letters_only(None), None)
+        self.assertEqual(letters_only("LettersONLY"), "LettersONLY")
+
+    def test_generate_palindrome(self):
+        self.assertEqual(generate_palindrome("mice"), "miceecim")
+        self.assertEqual(generate_palindrome("mad"), "madam")
+        self.assertEqual(generate_palindrome("a"), "a")
+        self.assertEqual(generate_palindrome(""), None)
+        self.assertEqual(generate_palindrome(None), None)
+
+    def test_is_palindrome(self):
+        self.assertTrue(is_palindrome("Racecar"))
+        self.assertTrue(is_palindrome("A man, a plan, a canal, Panama"))
+        self.assertTrue(is_palindrome("No 'x' in Nixon"))
+        self.assertFalse(is_palindrome("Hello"))
+        self.assertFalse(is_palindrome("Palindrome"))
+        self.assertFalse(is_palindrome(""))
+        self.assertFalse(is_palindrome(None))
+
+
+# This allows the test to be run from the command line using `python -m unittest filename.py`
+if __name__ == '__main__':
+    unittest.main()
